@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import dbConfig from "./config/dbConfig.js";
 import userRouter from "./routes/usersRoute.js";
 
+
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
