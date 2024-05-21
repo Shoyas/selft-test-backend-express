@@ -1,7 +1,6 @@
-
 import express from "express";
 import { User } from "../models/userModel.js";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
 const router = express.Router();
 
@@ -9,12 +8,12 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   try {
     //! if user is already exist
-    const isUserExist = await User.findOne({email: req.body.email});
-    if(isUserExist){
-        return res.status(200).send({
-            message: "User already exists",
-            success: false
-        })
+    const isUserExist = await User.findOne({ email: req.body.email });
+    if (isUserExist) {
+      return res.status(200).send({
+        message: "User already exists",
+        success: false,
+      });
     }
     // Hash password
     const saltRound = await bcrypt.genSalt(12);
@@ -22,12 +21,12 @@ router.post("/register", async (req, res) => {
     req.body.password = hashPassword;
 
     // create new user
-    const newUser = new User.create(req.body)
+    const newUser = new User(req.body);
     await newUser.save();
     res.send({
-        message: "User created successfully",
-        success: true
-    })
+      message: "User created successfully",
+      success: true,
+    });
   } catch (error) {
     res.status(500).send({
       message: error.message,
@@ -36,6 +35,5 @@ router.post("/register", async (req, res) => {
     });
   }
 });
-
 
 export default router;
