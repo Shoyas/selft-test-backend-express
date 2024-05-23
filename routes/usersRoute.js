@@ -64,7 +64,7 @@ router.post("/login", async (req, res) => {
         userId: user._id,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "365d" }
     );
     res.send({
       message: "User logged in successfully",
